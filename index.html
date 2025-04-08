@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Button</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+        #triggerButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        #surpriseImage {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <button id="triggerButton">Жми!</button>
+    <img id="surpriseImage" src="your-image.jpg" alt="Surprise">
+    <audio id="surpriseAudio" src="your-audio.mp3"></audio>
+
+    <script>
+        const button = document.getElementById('triggerButton');
+        const image = document.getElementById('surpriseImage');
+        const audio = document.getElementById('surpriseAudio');
+
+        // Устанавливаем максимальную громкость
+        audio.volume = 1.0;
+
+        // Срабатывание при любом клике на экране
+        document.body.addEventListener('click', function() {
+            // Скрываем кнопку
+            button.style.display = 'none';
+            // Показываем картинку
+            image.style.display = 'block';
+            // Запускаем аудио
+            audio.play();
+
+            // Предотвращаем остановку
+            audio.onpause = function() {
+                audio.play();
+            };
+            
+            // Делаем аудио неуправляемым
+            audio.controls = false;
+            audio.loop = true;
+        });
+    </script>
+</body>
+</html>
